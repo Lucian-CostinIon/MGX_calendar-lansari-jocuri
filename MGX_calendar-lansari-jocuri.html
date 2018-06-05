@@ -1,0 +1,2837 @@
+<style>
+body div.u-container:nth-last-of-type(n+5)
+    {
+        max-width: 1310px; /* 1280 px picture + Altex padding 15px on each side */
+        padding-right: 15px;
+        padding-left: 15px;
+        overflow-x: hidden;
+    }
+.Breadcrumbs.u-container-full
+    {
+        display: none;
+    }
+
+h1.u-heading-section.u-container-full.u-border-b-solid.lg-u-border-none
+    {
+        margin-top: 1em;
+        text-align: center;
+    }
+</style>
+
+<style>
+button.Accordion
+    {
+        position: relative;
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        width: 100%;
+        height: 40px;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 1.5em;
+        font-weight: bold;
+        transition: 0.4s;
+    }
+    button.Accordion.-Active, button.Accordion:hover
+    {
+        background-color: #ddd;
+    }
+
+    button.Accordion:after
+    {
+        position: absolute;
+        right: 7px;
+        top: calc(50% - 13px);
+        content: '\002b';
+        display: -webkit-flex;
+        display: -webkit-box;
+        display: -moz-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 26px;
+        width: 26px;
+        border-radius: 26px;
+        border: 1px solid #989898;
+        font-family: 'Glyphicons Halflings';
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #68625f;
+    }
+
+    button.Accordion.-Active::after
+    {
+        content: '\2212';
+        border: 1px solid #244196;
+        background: #244196;
+        color: white;
+    }
+
+div.Panel
+    {
+        position: relative;
+        padding: 5px 0px 5px 0px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.6s ease-in-out;
+        opacity: 0;
+    }
+
+div.Panel.-Show
+    {
+        opacity: 1;
+        max-height: 10000px;
+    }
+</style>
+
+<style>
+.ButtonLCI
+    {
+        position: relative;
+        display: inline-block;
+        min-width: 175px;
+        padding: 12px 18px 12px 56px;
+        margin: 10px 0;
+        border: none;
+        font-size: 13px;
+        font-weight: 900;        
+        line-height: 1em;
+        text-align: center;
+        text-decoration: none;
+        color: #58524E !important; /* default disabled state, '#58524E' is default body color CSS Altex / Media Galaxy, '!important' to override CSS Altex / Media Galaxy */
+        background-color: #EBEBEB !important; /* override CSS Altex / Media Galaxy, override CSS Altex / Media Galaxy */
+        background-image: linear-gradient(to top,#EBEBEB, #F2F2F2) !important; /* override CSS Altex / Media Galaxy */
+        border-radius: 5px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    .ButtonLCI::after
+    {
+        /* default disabled state */
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 46px;
+        height: 100%;
+        border-radius: 5px 0 0 5px;
+        background-color: #58524E;    
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, .2);
+    }
+    /* change button sizes */   
+    .ButtonLCI.-Block
+    {
+        display: block;
+        width: 100%;
+    }
+/*    
+    .ButtonLCI.-Small {
+        min-width: 155px;
+        padding: 8px 12px 8px 56px;
+        font-size: 12px;
+        line-height: 12px;
+    } */
+/* end of sizes */
+    /* change colors for MGX */
+    .ButtonLCI.-AdaugaInCosMGX, .ButtonLCI.-VeziDetaliiMGX
+    {
+        color: #fff !important;
+        background-color: #C91C30 !important;
+        background-image: linear-gradient(to top, #E41D34, #C91C30) !important;
+    }
+
+
+    .ButtonLCI.-AdaugaInCosMGX::before
+    {
+        content: '';
+        background-image: url(https://stat.altex.ro/skin/frontend/altex/mediagalaxy/images/sprites/svgsprite.svg);
+        background-size: 393px 318px;
+        width: 35px;
+        height: 18px;
+        background-position: -86px -123px;
+        position: absolute;
+        left: 5px;
+        bottom: 0;
+        top: 50%;
+        margin-top: -8px;
+        z-index: 1;
+        -webkit-transform: scale(.8);
+        transform:         scale(.8);
+    }
+    
+    .ButtonLCI.-VeziDetaliiMGX::before
+    {
+        content: '';
+        background-image: url(https://stat.altex.ro/skin/frontend/altex/mediagalaxy/images/sprites/svgsprite.svg);
+        background-size: 394px 378px;
+        width: 20px;
+        height: 18px;
+        background-position: -206px -217px;
+        position: absolute;
+        left: 15px;
+        bottom: 0;
+        top: 50%;
+        margin-top: -8px;
+        z-index: 1;
+        -webkit-transform : rotate(-90deg) scale(1.2); /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform     : rotate(-90deg) scale(1.2); /* IE 9 */
+        transform         : rotate(-90deg) scale(1.2); /* Firefox 16+, IE 10+, Opera */
+    }
+
+    .ButtonLCI.-AdaugaInCosMGX::after, .ButtonLCI.-VeziDetaliiMGX::after
+    {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 46px;
+        border-radius: 5px 0 0 5px;
+        background-color: #244196;    
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, .2);
+    }
+    .ButtonLCI.-AdaugaInCosMGX:hover::after, .ButtonLCI.-VeziDetaliiMGX:hover::after
+    {
+        background-color: #2E52AA;
+    }
+/* end colors for MGX */
+</style>
+
+<style>
+button.ButtonLCI.-VeziDetaliiMGX
+    {
+        right: 10px;
+        bottom: 35px;
+    }
+
+a button.ButtonLCI
+    {
+        position: absolute;
+    }
+    
+html
+    {
+        height: 100%;
+        margin-bottom: 1px;
+    }    
+picture img
+    {
+        width: 100%;
+        height: auto;
+}
+.JocBanner
+    {
+        position: relative;
+    }
+    
+.JocTip
+    {
+        position: absolute;
+        display: flex;
+        bottom: 5px;    
+        height: 37px;
+        width: 100%;
+    }
+    .JocTip a
+    {
+        width: 9%;
+        background-color: white; 
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;        
+        opacity: 0.7;
+        filter: alpha(opacity=70); /* for IE8 and earlier */
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+        .JocTip a:nth-of-type(even)    
+        {
+            margin-left: 3px;
+            margin-right: 3px;        
+        }
+            .JocTip a:hover
+            {
+                opacity: 0.9;
+                filter: alpha(opacity=90); /* for IE8 and earlier */  
+            }
+    a.PS4
+    {
+        background-image: url(https://media.altex.ro/LP/MGX/lansari-jocuri/2017/ps4_9eed964b.png);
+    }
+    a.XBOXONE
+    {
+        background-image: url(https://media.altex.ro/LP/MGX/lansari-jocuri/2017/xbox_one_fd43dac7.png); 
+    }
+    a.XBOX360
+    {
+        background-image: url(https://media.altex.ro/LP/MGX/lansari-jocuri/2017/xbox_360_9f40ba52.png); 
+    }
+    a.PC
+    {
+        background-image: url(https://media.altex.ro/LP/MGX/lansari-jocuri/2017/pc_48120ba4.png);        
+    }
+    a.NINTENDOSWITCH
+    {
+        background-image: url(https://media.altex.ro/LP/MGX/lansari-jocuri/2017/nintendo_switch_0851a66a.png); 
+    }
+    a.NINTENDO3DS
+    {
+        background-image: url(https://media.altex.ro/LP/MGX/lansari-jocuri/2017/nintendo_3ds_f2527e3c.png);        
+    }
+    a.WII
+    {
+        background-image: url(https://media.altex.ro/LP/MGX/lansari-jocuri/2017/w_ii_ce056d0c.png);         
+    }
+    a.PLAYSTATIONVR
+    {
+        
+    }
+    a.PS3
+    {
+        background-image: url(https://media.altex.ro/LP/MGX/lansari-jocuri/2017/ps3_2f2a8dc4.png);  
+    }    
+
+.JocDisponibilitate
+    {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: 220px;
+        background: #244196;
+        color: white;
+    }
+    .JocDisponibilitate:before
+    {
+        position: absolute;
+        left: -18px;
+        content: "";    
+        border-left: 18px solid transparent;
+        border-bottom: 18px solid #244196;
+    }
+    
+    .JocDisponibilitate p
+    {
+        float: right;
+        margin: 0px;
+        margin-right: 10px;
+    }
+        .JocDisponibilitate p span
+        {
+            text-align: right;
+        }
+            .JocDisponibilitate p span:nth-of-type(even)
+            {
+                font-weight: 900;
+            }
+    
+.JocPret
+    {
+        position: absolute;
+        right: 10px;
+        width: 95px;
+        height: 40px;
+        bottom: calc(50% - 20px - 6px + 38px);
+        border-radius: 5px;
+        background-color: #891D7D;
+        color: white;
+        text-align: center;
+    }
+    .JocPret span
+    {
+        margin: 0 auto;
+        line-height: 40px;
+        font-size: 2em;        
+    }
+        .JocPret span:nth-of-type(even)
+        {
+            font-size: 1.25em; 
+        }
+    .JocPret.-DeLa::before, .JocPret.-Pret::after
+    {
+        position: absolute;
+        left: 0px;
+        height: 13px;
+        width: 100%;
+        color: #002A92;
+        background-color: #E5E5E5;
+        font-weight: 900;
+        line-height: 14px;        
+    }
+        .JocPret.-DeLa::before
+        {
+            content: "De la";
+            top: -8px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;      
+        }
+        .JocPret.-DeLa span
+        {
+            position: relative;
+            top: 2px;
+        }
+        .JocPret.-Pret::after
+        {       
+            content: "Pret";
+            bottom: -8px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        .JocPret.-Pret span
+        {
+            position: relative;
+            bottom: 2px;
+        }
+    .JocPret.-DeLa
+    {
+        bottom: calc(50% - 20px - 6px + 38px - 4px);
+    }
+    .JocPret.-Pret
+    {
+        bottom: calc(50% - 20px - 6px + 38px + 4px);
+    }
+    
+.Descriere
+    {
+    position: relative;
+    }
+.Descriere p
+    {
+        position: relative;
+        text-align: left;
+        color: #58524E;
+    }
+.Descriere.-VeziMaiMult
+    {
+        overflow-y: hidden;
+        height: 100px;
+    }
+    .Descriere.-VeziMaiMult::after
+    {
+        content: '';
+        display: block;
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        height: 125px;
+        background-image: -webkit-linear-gradient(top,rgba(255,255,255,0) 33%, #f0EDEC 100%);
+        background-image: -o-linear-gradient(top,rgba(255,255,255,0) 33%, #f0EDEC 100%);
+        background-image: linear-gradient(to bottom,rgba(255,255,255,0) 33%, #f0EDEC 100%);
+        background-repeat: repeat-x;
+        pointer-events: none;
+    }
+.Descriere.-VeziMaiPutin
+{
+
+}
+.Descriere p span
+    {
+        display: block;
+    }    
+    .Descriere p span.DescriereTitle
+    {
+        padding-bottom: 7px;
+	
+    }
+    .Descriere p span.DescriereSemnatura
+    {
+        text-align: right;
+	
+    }
+img.DescriereIcon
+    {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border: 1px solid black;
+        background: white;
+    }
+a.DescriereAction:hover
+{
+    text-decoration: underline;
+}
+a.DescriereAction
+    {
+        cursor: context-menu;
+        cursor: -webkit-zoom-out;
+        cursor: zoom-out;
+    }
+    a.DescriereAction.-VeziMaiMult
+    {
+        cursor: context-menu;
+        cursor: -webkit-zoom-in;
+        cursor: zoom-in;
+    }
+
+/* overrides */   
+@media (min-width: 640px)
+{
+    .JocDisponibilitate p
+    {
+        padding-bottom: 3px;
+        padding-top: 3px;
+    }
+    .JocDisponibilitate:before
+    {
+        left: -24px;
+        border-left-width: 24px;
+        border-bottom-width: 24px;
+    }
+}    
+</style>
+
+<style>
+.MeniuOuterContainer
+    {
+        position: relative;
+        margin-bottom: 2em;
+        text-align: center;
+    }
+
+.MeniuInnerContainer
+    {
+        position: relative;
+        width: 95vw;
+        left: 50%;
+        transform: translate(-50%, -0%);
+    }
+
+.MeniuElement
+    {
+        display: inline-block;
+        width: 10%;
+        height: 100%;
+        width: 95px;
+        height: 40px;
+        text-align: center;
+        margin: 1px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        background: #244196;
+        border-radius: 5px;    
+        line-height: 15px;
+        box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .5);
+}
+    .MeniuElement a
+    {
+        text-decoration: none;
+        color: white;        
+    }
+</style>
+
+<style>
+.Tooltip
+    {
+        position: absolute;        
+    }    
+    
+@media only screen and (min-width : 100px) and (max-width : 640px)
+{
+    .ButtonLCI.-Small
+    {
+        min-width: 155px;
+        padding: 8px 12px 8px 56px;
+        font-size: 12px;
+        line-height: 12px;
+    }
+    .JocTip
+    {
+        height: 28px;
+    }
+    button.ButtonLCI.-VeziDetaliiMGX
+    {
+        bottom: 25px;        
+    }
+    .JocPret
+    {
+        bottom: calc(50% - 20px - 6px + 29px);
+    }    
+    .JocPret.-DeLa
+    {
+        bottom: calc(50% - 20px - 6px + 29px - 4px);
+    }
+    .JocPret.pret
+    {
+        bottom: calc(50% - 20px - 6px + 29px + 4px);
+    }  
+}
+
+@media only screen and (min-width : 640px) and (max-width : 2160px)
+{
+}
+</style>
+
+<!-- Start Meniu -->
+<div class="MeniuOuterContainer">
+      <div class="MeniuInnerContainer">
+          <div class="MeniuElement">
+              <a class="SpecialWindowScrollTo" href="#Ianuarie2018">IANUARIE<br>2018</a>
+          </div>
+          <div class="MeniuElement">
+              <a class="SpecialWindowScrollTo" href="#Februarie2018">FEBRUARIE<br>2018</a>
+          </div>
+          <div class="MeniuElement">
+              <a class="SpecialWindowScrollTo" href="#Martie2018">MARTIE<br>2018</a>
+          </div>
+          <div class="MeniuElement">
+              <a class="SpecialWindowScrollTo" href="#Aprilie2018">APRILIE<br>2018</a>
+          </div>
+          <div class="MeniuElement">
+              <a class="SpecialWindowScrollTo" href="#Mai2018">MAI<br>2018</a>
+          </div>
+          <div class="MeniuElement">
+              <a class="SpecialWindowScrollTo" href="#Iunie2018">IUNIE<br>2018</a>
+          </div>
+          <div class="MeniuElement">
+              <a class="SpecialWindowScrollTo" href="#Septembrie2018">SEPTEMBRIE<br>2018</a>
+          </div>
+          <div class="MeniuElement">
+              <a class="SpecialWindowScrollTo" href="#Octombrie2018">OCTOMBRIE<br>2018</a>
+          </div>
+          <div class="MeniuElement">
+              <a class="SpecialWindowScrollTo" href="#tba">To Be<br>Announced</a>
+              <div class="Tooltip" title="Jocurile 'To Be Announced' nu au o data de lansare exacta. Fii alaturi de Media Galaxy si verifica constant pagina pentru noutati !">
+                  ?
+              </div>
+          </div>     
+      </div>
+</div>
+<!-- End Meniu -->
+
+<button id="Ianuarie2018" class="Accordion">Ianuarie 2018</button>
+
+<div class="Panel">
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 24 Ianuarie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/The_Inpatient_480x300_553f73af.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/The_Inpatient_640x300_b7c5557c.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/The_Inpatient_960x300_2a606bc9.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/The_Inpatient_1280x300_375822c9.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/The_Inpatient_1280x300_375822c9.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>179</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/sony/order/price/dir/desc/?q=The%20Inpatient" target="_blank" title="The Inpatient PS4">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/sony/order/price/dir/desc/?q=The%20Inpatient" target="_blank" title="The Inpatient">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 26 Ianuarie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Rocket_League_480x300_eb6dc519.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Rocket_League_640x300_e3afc596.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Rocket_League_960x300_e9130ab3.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Rocket_League_1280x300_304e2102.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Rocket_League_1280x300_304e2102.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>199</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/505-games/order/price/dir/desc/?q=Rocket%20League%20Collector%27s" target="_blank" title="Rocket League Collector's Edition PS4">
+            </a>
+            <a class="NINTENDOSWITCH" href="https://mediagalaxy.ro/search/filtru/cat/741-nintendo-switch/brand-3334/505-games/order/price/dir/desc/?q=Rocket%20League%20Collector%27s" target="_blank" title="Rocket League Collector's Edition NINTENDOSWITCH">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/505-games/order/price/dir/desc/?q=Rocket%20League%20Collector%27s" target="_blank" title="Rocket League Collector's Edition">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 26 Ianuarie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Axiom_Verge_480x300_2d9fc1ed.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Axiom_Verge_640x300_f2e4a0fb.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Axiom_Verge_960x300_4eb887d2.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Axiom_Verge_1280x300_7d6e1879.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Axiom_Verge_1280x300_7d6e1879.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>79</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/independente/order/price/dir/desc/?q=Axiom%20Verge" target="_blank" title="Axiom Verge PS4">
+            </a>
+            <a class="NINTENDOSWITCH" href="https://mediagalaxy.ro/search/filtru/cat/741-nintendo-switch/brand-3334/independente/order/price/dir/desc/?q=Axiom%20Verge" target="_blank" title="Axiom Verge NINTENDOSWITCH">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/independente/order/price/dir/desc/?q=Axiom%20Verge" target="_blank" title="Axiom Verge">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 26 Ianuarie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Dragon_Ball_FighterZ_480x300_a4f0ab7a.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Dragon_Ball_FighterZ_640x300_3bee7b4f.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Dragon_Ball_FighterZ_960x300_93025070.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Dragon_Ball_FighterZ_1280x300_8f05be38.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Dragon_Ball_FighterZ_1280x300_8f05be38.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>279</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/bandai-namco/order/price/dir/desc/?q=Dragon%20Ball%20FighterZ" target="_blank" title="Dragon Ball FighterZ PS4">
+            </a> 
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/bandai-namco/order/price/dir/desc/?q=Dragon%20Ball%20FighterZ" target="_blank" title="Dragon Ball FighterZ XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/bandai-namco/order/price/dir/desc/?q=Dragon%20Ball%20FighterZ" target="_blank" title="Dragon Ball FighterZ">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 26 Ianuarie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Monster_Hunter_World_480x300_e363b0b0.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Monster_Hunter_World_640x300_0b7737e3.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Monster_Hunter_World_960x300_00c864f7.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Monster_Hunter_World_1280x300_b5a0b4f3.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/Monster_Hunter_World_1280x300_b5a0b4f3.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>249</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/capcom/order/price/dir/desc/?q=Monster%20Hunter%20World" target="_blank" title="Monster Hunter World PS4">
+            </a> 
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/471-xbox-one/brand-3334/capcom/?q=Monster%20Hunter%20World" target="_blank" title="Monster Hunter World XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/capcom/order/price/dir/desc/?q=Monster%20Hunter%20World" target="_blank" title="Monster Hunter World">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 26 Ianuarie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/PS4_Monster_Hunter_480x300_be26cfb5.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/PS4_Monster_Hunter_640x300_ef704b6d.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/PS4_Monster_Hunter_960x300_18ba0d6b.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/PS4_Monster_Hunter_1280x300_953b98a7.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/ianuarie/PS4_Monster_Hunter_1280x300_953b98a7.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>2.199</span>
+            <span>lei</span>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/sony/?q=PS4%20Pro%201TB%20Monster%20Hunter%20World" target="_blank" title="PS4 Pro 1TB + Monster Hunter World: Liolaeus Edition">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi consola</button>
+        </a>
+    </div>
+</div>
+
+<button id="Februarie2018" class="Accordion">Februarie 2018</button>
+
+<div class="Panel">
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 07 Februarie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/UFC_3_480x300_ef10877e.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/UFC_3_640x300_0896c4e6.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/UFC_3_960x300_aed4db9d.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/UFC_3_1280x300_d3b972a6.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/UFC_3_1280x300_d3b972a6.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>279</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/ea-sports/order/price/dir/desc/?q=UFC%203" target="_blank" title="UFC 3 PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/ea-sports/order/price/dir/desc/?q=UFC%203" target="_blank" title="UFC 3 XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/ea-sports/order/price/dir/desc/?q=UFC%203" target="_blank" title="UFC 3">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 07 Februarie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Shadow_Of_The_Colossus_480x300_b63ca36c.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Shadow_Of_The_Colossus_640x300_61a3376c.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Shadow_Of_The_Colossus_960x300_6b4da27e.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Shadow_Of_The_Colossus_1280x300_53f7c4eb.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Shadow_Of_The_Colossus_1280x300_53f7c4eb.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>169</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/sony/order/price/dir/desc/?q=Shadow%20Of%20The%20Colossus" target="_blank" title="Shadow Of The Colossus PS4">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/sony/order/price/dir/desc/?q=Shadow%20Of%20The%20Colossus" target="_blank" title="Shadow Of The Colossus">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 14 Februarie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Myria_MG7504_480x300_0d3e2093.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Myria_MG7504_640x300_2b640808.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Myria_MG7504_960x300_ef56f2b4.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Myria_MG7504_1280x300_be544c4f.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Myria_MG7504_1280x300_be544c4f.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>129</span>
+            <span>lei</span>
+        </div> 
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/myria/?q=Kit%20gaming%20MYRIA%20MG7504" target="_blank" title="Tastatura, mouse si mouse pad Myria MG7504">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi kit</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 16 Februarie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Tom_Clancys_Rainbow_Six_Siege-Advanced_Edition_480x300_8f88fc88.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Tom_Clancys_Rainbow_Six_Siege-Advanced_Edition_640x300_98793a26.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Tom_Clancys_Rainbow_Six_Siege-Advanced_Edition_960x300_c037dcba.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Tom_Clancys_Rainbow_Six_Siege-Advanced_Edition_1280x300_22d0d507.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Tom_Clancys_Rainbow_Six_Siege-Advanced_Edition_1280x300_22d0d507.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>219</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/ubisoft/order/price/dir/desc/?q=Tom%20Clancy%27s%20Rainbow%20Six%20Siege" target="_blank" title="Tom Clancy's Rainbow Six Siege Advanced Edition PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/order/price/dir/desc/brand-3334/ubisoft/?q=Tom%20Clancy%27s%20Rainbow%20Six%20Siege" target="_blank" title="Tom Clancy's Rainbow Six Siege Advanced Edition XBOXONE">
+            </a>
+<!--            
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/279-pc/brand-3334/ubisoft/?q=Tom%20Clancy%27s%20Rainbow%20Six%20Siege" target="_blank" title="Tom Clancy's Rainbow Six Siege Advanced Edition PC">
+            </a>
+-->
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/ubisoft/order/price/dir/desc/?q=Tom%20Clancy%27s%20Rainbow%20Six%20Siege" target="_blank" title="Tom Clancy's Rainbow Six Siege Advanced Edition">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 16 Februarie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Bayonetta_2_480x300_b028579f.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Bayonetta_2_640x300_eb7ae1b9.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Bayonetta_2_960x300_6e5421cb.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Bayonetta_2_1280x300_56f7a1d2.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Bayonetta_2_1280x300_56f7a1d2.png" sizes="100vw" alt="">
+        </picture>
+            <div class="JocPret -Pret">
+            <span>269</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="NINTENDOSWITCH" href="https://mediagalaxy.ro/search/filtru/cat/741-nintendo-switch/brand-3334/nintendo/order/price/dir/desc/?q=Bayonetta%202%20Nintendo%20Switch" target="_blank" title="Bayoneta 2 NINTENDOSWITCH">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/nintendo/order/price/dir/desc/?q=Bayonetta%202%20Nintendo%20Switch" target="_blank" title="Bayoneta 2">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 22 Februarie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Metal_Gear_Survive_480x300_0155afde.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Metal_Gear_Survive_640x300_26e30e0b.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Metal_Gear_Survive_960x300_202ea5aa.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Metal_Gear_Survive_1280x300_c60019a9.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Metal_Gear_Survive_1280x300_c60019a9.png" sizes="100vw" alt="">
+        </picture>
+            <div class="JocPret -Pret">
+            <span>169</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/konami/order/price/dir/desc/?q=Metal%20Gear%20Survive" target="_blank" title="Metal Gear Survive XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/order/price/dir/desc/?q=Metal%20Gear%20Survive" target="_blank" title="Metal Gear Survive">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 28 Februarie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/World_of_Warcraft-Battle_For_Azeroth_480x300_55e0dc8d.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/World_of_Warcraft-Battle_For_Azeroth_640x300_d9754b9a.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/World_of_Warcraft-Battle_For_Azeroth_960x300_3a70c580.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/World_of_Warcraft-Battle_For_Azeroth_1280x300_4b3898b8.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/World_of_Warcraft-Battle_For_Azeroth_1280x300_4b3898b8.png" sizes="100vw" alt="">
+        </picture>
+            <div class="JocPret -Pret">
+            <span>199</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/279-pc/brand-3334/blizzard/?q=Battle%20for%20Azeroth%20PC%20Purchase" target="_blank" title="World of Warcraft: Battle for Azeroth PC Pre-Purchase Box PC">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/blizzard/?q=Battle%20for%20Azeroth%20PC%20Purchase" target="_blank" title="World of Warcraft: Battle for Azeroth PC Pre-Purchase Box">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+</div>
+
+<button id="Martie2018" class="Accordion">Martie 2018</button>
+
+<div class="Panel">
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 07 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Frantics_480x300_93e78d0d.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Frantics_640x300_15d313be.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Frantics_960x300_02a260a8.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Frantics_1280x300_fbfcc0bc.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Frantics_1280x300_fbfcc0bc.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>89</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/sony/order/price/dir/desc/?q=Frantics" target="_blank" title="Frantics PS4">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/sony/order/price/dir/desc/?q=Frantics" target="_blank" title="Frantics">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 07 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Bravo_Team_480x300_ddb3873e.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Bravo_Team_640x300_e48734b5.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Bravo_Team_960x300_e1cd8137.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Bravo_Team_1280x300_5ddf8239.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Bravo_Team_1280x300_5ddf8239.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>169</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/438-playstation-4/brand-3334/sony/?q=Bravo%20Team" target="_blank" title="Bravo Team PS4">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/sony/?q=Bravo%20Team" target="_blank" title="Bravo Team">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 09 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Life_Is_Strange-Before_The_Storm_480x300_62b4cce9.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Life_Is_Strange-Before_The_Storm_640x300_59733f2d.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Life_Is_Strange-Before_The_Storm_960x300_c59f2b9a.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Life_Is_Strange-Before_The_Storm_1280x300_098aec17.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Life_Is_Strange-Before_The_Storm_1280x300_098aec17.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>169</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/438-playstation-4/brand-3334/square-enix/?q=Life%20Is%20Strange" target="_blank" title="Life Is Strange - Before The Storm PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/square-enix/order/price/dir/desc/?q=Life%20Is%20Strange" target="_blank" title="Life Is Strange - Before The Storm XBOXONE">
+            </a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/279-pc/brand-3334/square-enix/?q=Life%20Is%20Strange" target="_blank" title="Life Is Strange - Before The Storm PC">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/square-enix/?q=Life%20Is%20Strange" target="_blank" title="Life Is Strange - Before The Storm">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 15 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Steelseries_Rival_600_480x300_887755bf.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Steelseries_Rival_600_640x300_1eb64124.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Steelseries_Rival_600_960x300_dc483a6d.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Steelseries_Rival_600_1280x300_fcf90d50.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Steelseries_Rival_600_1280x300_fcf90d50.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>399</span>
+            <span>lei</span>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/steelseries/order/price/dir/desc/?q=Steelseries%20Rival%20600" target="_blank" title="Steelseries Rival 600">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi mouse</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 15 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Marvo_HG9035_480x300_0f65d2fc.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Marvo_HG9035_640x300_898b5da0.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Marvo_HG9035_960x300_2e7750f0.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Marvo_HG9035_1280x300_88e420d4.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Marvo_HG9035_1280x300_88e420d4.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>159</span>
+            <span>lei</span>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/marvo/?q=Marvo%20HG9035" target="_blank" title="Marvo HG9035">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi casti</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 15 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Marvo_HG9037_480x300_09bbfd3a.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Marvo_HG9037_640x300_5e7108fb.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Marvo_HG9037_960x300_ce86f33f.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Marvo_HG9037_1280x300_ef494884.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Marvo_HG9037_1280x300_ef494884.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>149</span>
+            <span>lei</span>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/marvo/order/price/dir/desc/?q=Marvo%20HG9037" target="_blank" title="Marvo HG9037">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi casti</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 15 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/HyperX_Alloy_Elite_480x300_6556dc32.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/HyperX_Alloy_Elite_640x300_d162e7b0.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/HyperX_Alloy_Elite_960x300_c1d7bf9b.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/HyperX_Alloy_Elite_1280x300_a9a6533e.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/HyperX_Alloy_Elite_1280x300_a9a6533e.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>799</span>
+            <span>lei</span>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/hyperx/?q=HyperX%20Alloy%20Elite%20Cherry%20RGB" target="_blank" title="HyperX Alloy Elite Cherry RGB">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi tastatura</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 16 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Burnout_Paradise-Remastered_480x300_acf697f9.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Burnout_Paradise-Remastered_640x300_0254820b.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Burnout_Paradise-Remastered_960x300_580d4081.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Burnout_Paradise-Remastered_1280x300_20a7f2b6.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Burnout_Paradise-Remastered_1280x300_20a7f2b6.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>169</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/ea-games/order/price/dir/desc/?q=Burnout%20Paradise%20Remastered" target="_blank" title="Burnout Paradise Remastered PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/471-xbox-one/brand-3334/ea-games/?q=Burnout%20Paradise%20Remastered" target="_blank" title="Burnout Paradise Remastered XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/ea-games/order/price/dir/desc/?q=Burnout%20Paradise%20Remastered" target="_blank" title="SBurnout Paradise Remastered">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 20 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Sea_Of_Thieves_480x300_a2ca49c3.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Sea_Of_Thieves_640x300_03ff8bf9.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Sea_Of_Thieves_960x300_109d3e43.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Sea_Of_Thieves_1280x300_ae985a8c.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Sea_Of_Thieves_1280x300_ae985a8c.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>199</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/microsoft/order/price/dir/desc/?q=Sea%20Of%20Thieves" target="_blank" title="Sea Of Thieves XBOXONE">
+            </a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/279-pc/brand-3334/microsoft/?q=Sea%20Of%20Thieves" target="_blank" title="Sea Of Thieves PC">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/microsoft/order/price/dir/desc/?q=Sea%20Of%20Thieves" target="_blank" title="Sea Of Thieves">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 20 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Assassins_Creed_Rogue-Remastered_480x300_381324db.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Assassins_Creed_Rogue-Remastered_640x300_5099ae91.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Assassins_Creed_Rogue-Remastered_960x300_c623dcbd.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Assassins_Creed_Rogue-Remastered_1280x300_47372bf8.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Assassins_Creed_Rogue-Remastered_1280x300_47372bf8.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>149</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/438-playstation-4/brand-3334/ubisoft/?q=Assassin%27s%20Creed:%20Rogue" target="_blank" title="Assassin's Creed Rogue Remastered PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/order/price/dir/desc/brand-3334/ubisoft/?q=Assassin%27s%20Creed:%20Rogue" target="_blank" title="Assassin's Creed Rogue Remastered XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/ubisoft/?q=Assassin%27s%20Creed:%20Rogue" target="_blank" title="Assassin's Creed Rogue Remastered">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 23 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/A_Way_Out_480x300_15e221e4.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/A_Way_Out_640x300_96c726d5.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/A_Way_Out_960x300_2c7857e1.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/A_Way_Out_1280x300_8f400fc2.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/A_Way_Out_1280x300_8f400fc2.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>129</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/electronic-arts/order/price/dir/desc/?q=A%20Way%20Out" target="_blank" title="A Way Out PS4">
+            </a> 
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/471-xbox-one/brand-3334/electronic-arts/?q=A%20Way%20Out" target="_blank" title="A Way Out XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/electronic-arts/order/price/dir/desc/?q=A%20Way%20Out" target="_blank" title="A Way Out">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 23 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Ni_No_Kuni_II-Revenant_King_480x300_d90ccaaf.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Ni_No_Kuni_II-Revenant_King_640x300_29a03002.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Ni_No_Kuni_II-Revenant_King_960x300_fc458ecb.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Ni_No_Kuni_II-Revenant_King_1280x300_6347c534.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Ni_No_Kuni_II-Revenant_King_1280x300_6347c534.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>599</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/bandai-namco/order/price/dir/desc/?q=Ni%20no%20Kuni%20II%20Revenant%20King" target="_blank" title="Ni No Kuni II Revenant King PS4">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/bandai-namco/order/price/dir/desc/?q=Ni%20no%20Kuni%20II%20Revenant%20King" target="_blank" title="Ni No Kuni II Revenant King">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 23 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/WWE_2K18_Wrestlemania_Edition_480x300_8c2d1626.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/WWE_2K18_Wrestlemania_Edition_640x300_05554954.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/WWE_2K18_Wrestlemania_Edition_960x300_c4191ea7.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/WWE_2K18_Wrestlemania_Edition_1280x300_cc30b03f.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/WWE_2K18_Wrestlemania_Edition_1280x300_cc30b03f.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>229</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/take-2-interactive/order/price/dir/desc/?q=WWE%202K18%20Wrestlemania%20Edition" target="_blank" title="WWE 2K18 Wrestlemania Edition PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/take-2-interactive/order/price/dir/desc/?q=WWE%202K18%20Wrestlemania%20Edition" target="_blank" title="WWE 2K18 Wrestlemania Edition XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/take-2-interactive/order/price/dir/desc/?q=WWE%202K18%20Wrestlemania%20Edition" target="_blank" title="WWE 2K18 Wrestlemania Edition">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 27 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Far_Cry_5_480x300_2402b27d.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Far_Cry_5_640x300_c96ed4d3.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Far_Cry_5_960x300_0505550f.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Far_Cry_5_1280x300_834c931c.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Far_Cry_5_1280x300_834c931c.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>269</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/ubisoft/order/price/dir/desc/?q=Far%20Cry%205" target="_blank" title="Far Cry 5 PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/ubisoft/order/price/dir/desc/?q=Far%20Cry%205" target="_blank" title="Far Cry 5 XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/ubisoft/order/price/dir/desc/?q=Far%20Cry%205" target="_blank" title="Far Cry 5">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+        <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 31 Martie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Consola_Retro_Commodore_64_C64_Mini_480x300_f165be63.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Consola_Retro_Commodore_64_C64_Mini_640x300_289abc23.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Consola_Retro_Commodore_64_C64_Mini_960x300_d932d401.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Consola_Retro_Commodore_64_C64_Mini_1280x300_c330853d.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Consola_Retro_Commodore_64_C64_Mini_1280x300_c330853d.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>399</span>
+            <span>lei</span>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/independente/?q=Consola%20Commodore%2064" target="_blank" title="Consola Retro Commodore 64 C64 Mini">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi consola</button>
+        </a>
+    </div>
+</div>
+
+<button id="Aprilie2018" class="Accordion">Aprilie 2018</button>
+
+<div class="Panel">
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 17 Aprilie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/Yakuza_6-The_Song_Of_Life_480x300_e5c9c455.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/Yakuza_6-The_Song_Of_Life_640x300_669ad542.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/Yakuza_6-The_Song_Of_Life_960x300_740cac82.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/Yakuza_6-The_Song_Of_Life_1280x300_c69c9619.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/Yakuza_6-The_Song_Of_Life_1280x300_c69c9619.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>269</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/sega/order/price/dir/desc/?q=Yakuza%206%20The%20Song%20of%20Life" target="_blank" title="Yakuza 6 The Song of Life PS4">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/sega/order/price/dir/desc/?q=Yakuza%206%20The%20Song%20of%20Life" target="_blank" title="Yakuza 6 The Song of Life">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 20 Aprilie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/God_of_War_480x300_ae678673.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/God_of_War_640x300_b806907b.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/God_of_War_960x300_dd3960ec.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/God_of_War_1280x300_d6357169.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/God_of_War_1280x300_d6357169.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>279</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/sony/order/price/dir/desc/?q=God%20of%20War" target="_blank" title="God Of War PS4">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/sony/order/price/dir/desc/?q=God%20of%20War" target="_blank" title="God Of War">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+        <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 20 Aprilie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/PS4_God_Of_War_480x300_1de486a5.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/PS4_God_Of_War_640x300_15007f16.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/PS4_God_Of_War_960x300_a58c2dfa.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/PS4_God_Of_War_1280x300_e31fd013.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/PS4_God_Of_War_1280x300_e31fd013.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>2.199</span>
+            <span>lei</span>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/sony/order/price/dir/desc/?q=PS4%20Pro%201TB%20God%20of%20War%20Limited" target="_blank" title="PS4 Pro 1TB + God Of War: Limited Edition">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi consola</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 30 Aprilie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/The_Guild_3-Aristocratic_Edition_480x300_4cc7fa83.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/The_Guild_3-Aristocratic_Edition_640x300_5f40070e.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/The_Guild_3-Aristocratic_Edition_960x300_0739ccfd.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/The_Guild_3-Aristocratic_Edition_1280x300_4c24144a.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/aprilie/The_Guild_3-Aristocratic_Edition_1280x300_4c24144a.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>379</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/279-pc/brand-3334/thq-nordic/?q=Guild%203%20Aristocratic%20Edition" target="_blank" title="The Guild 3 Aristocratic Edition PC">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/thq-nordic/?q=Guild%203%20Aristocratic%20Edition" target="_blank" title="The Guild 3 Aristocratic Edition">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+</div>
+
+<button id="Mai2018" class="Accordion">Mai 2018</button>
+
+<div class="Panel">
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 01 Mai 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/mai/Minecraft_Super_Plus_Pack_480x300_81fc0f79.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/mai/Minecraft_Super_Plus_Pack_640x300_2055b4b0.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/mai/Minecraft_Super_Plus_Pack_960x300_0e3309cb.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/mai/Minecraft_Super_Plus_Pack_1280x300_0f86cf57.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/mai/Minecraft_Super_Plus_Pack_1280x300_0f86cf57.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>179</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/microsoft/order/price/dir/desc/?q=Minecraft%20Super%20Plus%20Pack" target="_blank" title="Minecraft Super Plus Pack XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/microsoft/order/price/dir/desc/?q=Minecraft%20Super%20Plus%20Pack" target="_blank" title="Minecraft Super Plus Pack">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 22 Mai 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Space_Hulk-Deathwing_Enhanced_Edition_480x300_7b740b24.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Space_Hulk-Deathwing_Enhanced_Edition_640x300_65fc4227.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Space_Hulk-Deathwing_Enhanced_Edition_960x300_5aa7fa45.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Space_Hulk-Deathwing_Enhanced_Edition_1280x300_cbcd249a.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/martie/Space_Hulk-Deathwing_Enhanced_Edition_1280x300_cbcd249a.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>224</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/focus-home-interactive/order/price/dir/desc/?q=Space%20Hulk%20Deathwing%20Enhanced" target="_blank" title="Space Hulk Deathwing Enhanced Edition PS4">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/focus-home-interactive/order/price/dir/desc/?q=Space%20Hulk%20Deathwing%20Enhanced" target="_blank" title="Space Hulk Deathwing Enhanced Edition">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 22 Mai 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/State_Of_Decay_2_480x300_3b1b177a.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/State_Of_Decay_2_640x300_ff127012.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/State_Of_Decay_2_640x300_ff127012.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/State_Of_Decay_2_960x300_d96276a3.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/State_Of_Decay_2_1280x300_7f844d3f.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>199</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/microsoft/order/price/dir/desc/?q=State%20Of%20Decay%202" target="_blank" title="State Of Decay 2 XBOXONE">
+            </a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/microsoft/order/price/dir/desc/?q=State%20Of%20Decay%202" target="_blank" title="State Of Decay 2 PC">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/microsoft/order/price/dir/desc/?q=State%20Of%20Decay%202" target="_blank" title="State Of Decay 2">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 25 Mai 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Detroit-Become_Human_480x300_f520fabf.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Detroit-Become_Human_640x300_7985c160.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Detroit-Become_Human_960x300_394e8c9c.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Detroit-Become_Human_1280x300_00d47f17.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Detroit-Become_Human_1280x300_00d47f17.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>279</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/sony/order/price/dir/desc/?q=Detroit%20Become%20Human" target="_blank" title="Detroit Become Human PS4">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/sony/order/price/dir/desc/?q=Detroit%20Become%20Human" target="_blank" title="Detroit Become Human">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+</div>
+
+<button id="Iunie2018" class="Accordion -Active">Iunie 2018</button>
+
+<div class="Panel -Show">
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 05 Iunie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Vampyr_480x300_ca2ebd4e.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Vampyr_640x300_0b9059cc.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Vampyr_960x300_8ff29783.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Vampyr_1280x300_3a8459a2.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Vampyr_1280x300_3a8459a2.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>199</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/438-playstation-4/brand-3334/focus-home-interactive/?q=Vampyr" target="_blank" title="Vampyr PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/focus-home-interactive/order/price/dir/desc/?q=Vampyr" target="_blank" title="Vampyr XBOXONE">
+            </a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/focus-home-interactive/order/price/dir/desc/?q=Vampyr" target="_blank" title="Vampyr PC">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/focus-home-interactive/?q=Vampyr" target="_blank" title="Vampyr">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 29 Iunie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/The_Crew_2_480x300_7c8075c0.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/The_Crew_2_640x300_b31775bf.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/The_Crew_2_960x300_8f114faf.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/The_Crew_2_1280x300_a967720a.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/The_Crew_2_1280x300_a967720a.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>269</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/ubisoft/order/price/dir/desc/?q=The%20Crew%202" target="_blank" title="The Crew 2 PS4">
+            </a> 
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/ubisoft/order/price/dir/desc/?q=The%20Crew%202" target="_blank" title="The Crew 2 XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/ubisoft/order/price/dir/desc/?q=The%20Crew%202" target="_blank" title="The Crew 2">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 30 Iunie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Dont_Starve-Mega_Pack_480x300_54be9479.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Dont_Starve-Mega_Pack_640x300_7fead6b6.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Dont_Starve-Mega_Pack_960x300_af4e3f10.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Dont_Starve-Mega_Pack_1280x300_4dd8bf89.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/februarie/Dont_Starve-Mega_Pack_1280x300_4dd8bf89.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>129</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/505-games/order/price/dir/desc/?q=Don%27t%20Starve%20Mega%20Pack" target="_blank" title="Don't Starve Mega Pack PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/471-xbox-one/brand-3334/505-games/?q=Don%27t%20Starve%20Mega%20Pack" target="_blank" title="Don't Starve Mega Pack XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/505-games/order/price/dir/desc/?q=Don%27t%20Starve%20Mega%20Pack" target="_blank" title="Don't Starve Mega Pack">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 30 Iunie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/iunie/Crackdown_3_480x300_0e4f8ac2.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/iunie/Crackdown_3_640x300_c6e6ac10.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/iunie/Crackdown_3_960x300_39822156.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/iunie/Crackdown_3_1280x300_0f523534.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/iunie/Crackdown_3_1280x300_0f523534.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>279</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/microsoft/order/price/dir/desc/?q=Crackdown%203" target="_blank" title="Crackdown 3 XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/microsoft/order/price/dir/desc/?q=Crackdown%203" target="_blank" title="Crackdown 3">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+</div>
+
+<button id="Septembrie2018" class="Accordion">Septembrie 2018</button>
+<div class="Panel">
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 07 Septembrie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Spider-Man_480x300_d741f2cb.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Spider-Man_640x300_7f72fe6b.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Spider-Man_960x300_b75874f3.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Spider-Man_1280x300_b309349c.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Spider-Man_1280x300_b309349c.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>279</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/sony/order/price/dir/desc/?q=Spider-Man" target="_blank" title="Spider-Man PS4">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/sony/order/price/dir/desc/?q=Spider-Man" target="_blank" title="Spider-Man">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+</div>
+
+<button id="Octombrie2018" class="Accordion">Octombrie 2018</button>
+<div class="Panel">
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 12 Octombrie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/octombrie/Call_Of_Duty-Black_Ops-4_480x300_cf75659e.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/octombrie/Call_Of_Duty-Black_Ops-4_640x300_1a6fedff.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/octombrie/Call_Of_Duty-Black_Ops-4_960x300_5d7f0305.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/octombrie/Call_Of_Duty-Black_Ops-4_1280x300_96d81a5f.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/octombrie/Call_Of_Duty-Black_Ops-4_1280x300_96d81a5f.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>249</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/activision/order/price/dir/desc/?q=Call%20Of%20Duty:%20Black%20Ops%204" target="_blank" title="Call Of Duty: Black Ops 4 PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/activision/order/price/dir/desc/?q=Call%20Of%20Duty:%20Black%20Ops%204" target="_blank" title="Call Of Duty: Black Ops 4 XBOXONE">
+            </a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/activision/order/price/dir/desc/?q=Call%20Of%20Duty:%20Black%20Ops%204" target="_blank" title="Call Of Duty: Black Ops 4 PC">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/activision/order/price/dir/desc/?q=Call%20Of%20Duty:%20Black%20Ops%204" target="_blank" title="Call Of Duty: Black Ops 4">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>Disponibil din</span>
+                <span> 26 Octombrie 2018</span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Red_Dead_Redemption_2_480x300_e1d0227a.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Red_Dead_Redemption_2_640x300_7d87b30e.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Red_Dead_Redemption_2_960x300_d61a7ea6.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Red_Dead_Redemption_2_1280x300_46c81391.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Red_Dead_Redemption_2_1280x300_46c81391.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>269</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/438-playstation-4/brand-3334/take-2-interactive/?q=Red%20Dead%20Redemption%202" target="_blank" title="Red Dead Redemption 2 PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/471-xbox-one/brand-3334/take-2-interactive/?q=Red%20Dead%20Redemption%202" target="_blank" title="Red Dead Redemption 2 XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/take-2-interactive/?q=Red%20Dead%20Redemption%202" target="_blank" title="Red Dead Redemption 2">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+</div>
+
+<button id="tba" class="Accordion">To Be Announced</button>
+
+<div class="Panel">
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>To Be Announced - 2018</span>
+                <span></span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Code_Vein_480x300_703aed31.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Code_Vein_640x300_3234b607.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Code_Vein_960x300_081ac3bc.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Code_Vein_1280x300_58f7bad1.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Code_Vein_1280x300_58f7bad1.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>229</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/438-playstation-4/brand-3334/bandai-namco/?q=Code%20Vein" target="_blank" title="Code Vein PS4">
+            </a> 
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/bandai-namco/order/price/dir/desc/?q=Code%20Vein" target="_blank" title="Code Vein XBOXONE">
+            </a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/bandai-namco/order/price/dir/desc/?q=Code%20Vein" target="_blank" title="Code Vein PC">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/bandai-namco/?q=Code%20Vein" target="_blank" title="Code Vein">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>To Be Announced - 2018</span>
+                <span></span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Metro_Exodus_480x300_8b80faf0.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Metro_Exodus_640x300_c17faf69.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Metro_Exodus_960x300_7a2ee72f.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Metro_Exodus_1280x300_1e1ba721.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Metro_Exodus_1280x300_1e1ba721.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>229</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/independente/order/price/dir/desc/?q=Metro%20Exodus" target="_blank" title="Metro Exodus PS4">
+            </a> 
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/independente/order/price/dir/desc/?q=Metro%20Exodus" target="_blank" title="Metro Exodus XBOXONE">
+            </a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/independente/order/price/dir/desc/?q=Metro%20Exodus" target="_blank" title="Metro Exodus PC">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/independente/order/price/dir/desc/?q=Metro%20Exodus" target="_blank" title="Metro Exodus">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>To Be Announced - 2018</span>
+                <span></span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Beyond_Good_And_Evil_2_480x300_43978105.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Beyond_Good_And_Evil_2_640x300_83ff0c50.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Beyond_Good_And_Evil_2_960x300_a656d016.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Beyond_Good_And_Evil_2_1280x300_a760ed92.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Beyond_Good_And_Evil_2_1280x300_a760ed92.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>279</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/ubisoft/order/price/dir/desc/?q=Beyond%20Good%20and%20Evil%202" target="_blank" title="Beyond Good and Evil 2 PS4">
+            </a> 
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/ubisoft/order/price/dir/desc/?q=Beyond%20Good%20and%20Evil%202" target="_blank" title="Beyond Good and Evil 2 XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/ubisoft/order/price/dir/desc/?q=Beyond%20Good%20and%20Evil%202" target="_blank" title="Beyond Good and Evil 2">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>To Be Announced - 2018</span>
+                <span></span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Death_Stranding_480x300_03daade9.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Death_Stranding_640x300_1ca55b89.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Death_Stranding_960x300_9afdbc84.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Death_Stranding_1280x300_f01f3052.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Death_Stranding_1280x300_f01f3052.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>279</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/sony/order/price/dir/desc/?q=Death%20Stranding" target="_blank" title="Death Stranding PS4">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/sony/order/price/dir/desc/?q=Death%20Stranding" target="_blank" title="Death Stranding">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>To Be Announced - 2018</span>
+                <span></span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/The_Last_Of_Us_Part_II_480x300_328fc405.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/The_Last_Of_Us_Part_II_640x300_a7f833fc.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/The_Last_Of_Us_Part_II_960x300_18774229.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/The_Last_Of_Us_Part_II_1280x300_c1960ea7.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/The_Last_Of_Us_Part_II_1280x300_c1960ea7.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>279</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/sony/order/price/dir/desc/?q=The%20Last%20of%20Us%20Part%20II" target="_blank" title="The Last Of Us Part II PS4">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/sony/order/price/dir/desc/?q=The%20Last%20of%20Us%20Part%20II" target="_blank" title="The Last Of Us Part II">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>To Be Announced - 2018</span>
+                <span></span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Skull_&_Bones_480x300_77f1240d.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Skull_&_Bones_640x300_3ee91cc9.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Skull_&_Bones_960x300_e0c7e516.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Skull_&_Bones_1280x300_dbd44849.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Skull_&_Bones_1280x300_dbd44849.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>279</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/ubisoft/order/price/dir/desc/?q=Skull%20Bones" target="_blank" title="Skull & Bones PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/ubisoft/order/price/dir/desc/?q=Skull%20Bones" target="_blank" title="Skull & Bones XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/ubisoft/order/price/dir/desc/?q=Skull%20Bones" target="_blank" title="Skull & Bones">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>To Be Announced - 2018</span>
+                <span></span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Ace_Combat_7_480x300_9a3cb517.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Ace_Combat_7_640x300_bf24bd91.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Ace_Combat_7_960x300_01943d3a.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Ace_Combat_7_1280x300_700bdfee.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Ace_Combat_7_1280x300_700bdfee.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>229</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/438-playstation-4/brand-3334/bandai-namco/?q=Ace%20Combat%207" target="_blank" title="Ace Combat 7 PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/bandai-namco/order/price/dir/desc/?q=Ace%20Combat%207" target="_blank" title="Ace Combat 7 XBOXONE">
+            </a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/279-pc/brand-3334/bandai-namco/?q=Ace%20Combat%207" target="_blank" title="Ace Combat 7 PC">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/bandai-namco/?q=Ace%20Combat%207" target="_blank" title="Ace Combat 7">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>To Be Announced - 2018</span>
+                <span></span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Kingdom_Hearts_III_480x300_506f5826.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Kingdom_Hearts_III_640x300_83592fe0.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Kingdom_Hearts_III_960x300_e75d68c6.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Kingdom_Hearts_III_1280x300_62110d11.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Kingdom_Hearts_III_1280x300_62110d11.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>259</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/438-playstation-4/brand-3334/square-enix/?q=Kingdom%20Hearts%20III" target="_blank" title="Kingdom Hearts III PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/square-enix/order/price/dir/desc/?q=Kingdom%20Hearts%20III" target="_blank" title="Kingdom Hearts III XBOXONE">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/square-enix/?q=Kingdom%20Hearts%20III" target="_blank" title="Kingdom Hearts III">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>To Be Announced - 2018</span>
+                <span></span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Quake_Champions_480x300_a4bbfed4.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Quake_Champions_640x300_f5a90e85.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Quake_Champions_960x300_aec4b088.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Quake_Champions_1280x300_4963f96f.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Quake_Champions_1280x300_4963f96f.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>249</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/bethesda/order/price/dir/desc/?q=Quake%20Champions" target="_blank" title="Quake Champions PC">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/bethesda/order/price/dir/desc/?q=Quake%20Champions" target="_blank" title="Quake Champions">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>To Be Announced - 2019</span>
+                <span></span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Anthem_480x300_aec1deaf.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Anthem_640x300_ca4d72c1.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Anthem_960x300_be9d0114.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Anthem_1280x300_7f7422a0.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/TBA/Anthem_1280x300_7f7422a0.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>239</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/electronic-arts/order/price/dir/desc/?q=Anthem" target="_blank" title="Anthem PS4">
+            </a> 
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/electronic-arts/order/price/dir/desc/?q=Anthem" target="_blank" title="Anthem XBOXONE">
+            </a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/electronic-arts/order/price/dir/desc/?q=Anthem" target="_blank" title="Anthem PC">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/electronic-arts/order/price/dir/desc/?q=Anthem" target="_blank" title="Anthem">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>            
+                <span>To Be Announced - 2019</span>
+                <span></span>
+            </p>             
+        </div>    
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Days_Gone_480x300_2a435b68.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Days_Gone_640x300_909b740e.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Days_Gone_960x300_a5843125.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Days_Gone_1280x300_3710343e.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2018/TBA/Days_Gone_1280x300_3710343e.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>279</span>
+            <span>lei</span>
+        </div>  
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/438-playstation-4/brand-3334/sony/?q=Days%20Gone" target="_blank" title="Days Gone PS4">
+            </a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/order/price/dir/desc/cat/175-gaming-jocuri-jucarii/brand-3334/sony/?q=Days%20Gone" target="_blank" title="Days Gone">
+            <button type="submit" title="Vezi jocuri" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocuri</button>
+        </a>
+    </div>
+</div>
+
+<button id="Septembrie2017" class="Accordion">Septembrie 2017</button>
+
+<div class="Panel">
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 06 Septembrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Destiny_2_480x300_09e674e8.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Destiny_2_640x300_6bc7be45.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Destiny_2_960x300_7dcc34a0.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Destiny_2_1280x300_8775026e.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Destiny_2_1280x300_8775026e.png" sizes="100vw" alt="">
+        </picture>        
+        <div class="JocPret -DeLa">
+            <span>229</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/activision/order/price/dir/desc/?q=Destiny%202" target="_blank" title="Destiny 2 PS4"></a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/activision/order/price/dir/desc/?q=Destiny%202" target="_blank" title="Destiny 2 XBOXONE"></a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/activision/order/price/dir/desc/?q=Destiny%202" target="_blank" title="Destiny 2 PC"></a> 
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/activision/order/price/dir/desc/?q=Destiny%202" target="_blank" title="Destiny 2">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 14 Septembrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/PES2018-Pro_Evolution_Soccer_480x300_b8f7dd7c.png">
+            <source media="(max-width:  640px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/PES2018-Pro_Evolution_Soccer_640x300_8d99963c.png">
+            <source media="(max-width:  960px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/PES2018-Pro_Evolution_Soccer_960x300_0d779772.png">
+            <source media="(max-width:  1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/PES2018-Pro_Evolution_Soccer_1280x300_df9c8b6b.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/PES2018-Pro_Evolution_Soccer_1280x300_df9c8b6b.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>179</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/konami/order/price/dir/desc/?q=Pro%20Evolution%20Soccer%202018" target="_blank" title="Pro Evolution Soccer 2018 XBOXONE"></a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/konami/order/price/dir/desc/?q=Pro%20Evolution%20Soccer%202018" target="_blank" title="Pro Evolution Soccer 2018 PC"></a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/konami/order/price/dir/desc/?q=Pro%20Evolution%20Soccer%202018" target="_blank" title="Pro Evolution Soccer 2018">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 15 Septembrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/NBA_2K18_480x300_3693cbe4.png">
+            <source media="(max-width:  640px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/NBA_2K18_640x300_faf73af6.png">
+            <source media="(max-width:  960px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/NBA_2K18_960x300_13bd82f8.png">
+            <source media="(max-width:  1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/NBA_2K18_1280x300_c07ebdf0.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/NBA_2K18_1280x300_c07ebdf0.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>159</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/electronic-arts/order/price/dir/desc/?q=Nba%20Live%2018" target="_blank" title="NBA Live 18 XBOXONE"></a> 
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/electronic-arts/order/price/dir/desc/?q=Nba%20Live%2018" target="_blank" title="NBA Live 18">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 16 Septembrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Dishonored_480x300_4d0fccc6.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Dishonored-Death_To_The_Outsider_640x300_b7ab34a3.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Dishonored_960x300_60e63303.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Dishonored-Death_To_The_Outsider_1280x300_d968d19e.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Dishonored-Death_To_The_Outsider_1280x300_d968d19e.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>69</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/bethesda/order/price/dir/desc/?q=Dishonored%20Death%20Outsider" target="_blank" title="Dishonored Death Of The Outsider PS4"></a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/bethesda/order/price/dir/desc/?q=Dishonored%20Death%20Outsider" target="_blank" title="Dishonored Death Of The Outsider XBOXONE"></a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/bethesda/order/price/dir/desc/?q=Dishonored%20Death%20Outsider" target="_blank" title="Dishonored Death Of The Outsider PC"></a> 
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/bethesda/order/price/dir/desc/?q=Dishonored%20Death%20Outsider" target="_blank" title="Dishonored Death Of The Outsider">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 19 Septembrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Marvel_Vs_Capcom-Infinite_480x300_1691d01e.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Marvel_Vs_Capcom-Infinite_640x300_7f8039b7.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Marvel_Vs_Capcom-Infinite_960x300_86ba7b56.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Marvel_Vs_Capcom-Infinite_1280x300_b4d1c52e.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Marvel_Vs_Capcom-Infinite_1280x300_b4d1c52e.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>179</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/catalogsearch/result/index/?brand-3334=capcom&cat=438-playstation-4&dir=desc&order=price&q=Marvel+Vs+Capcom+Infinite" target="_blank" title="Marvel Vs Capcom Infinite PS4"></a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/catalogsearch/result/index/?brand-3334=capcom&cat=471-xbox-one&dir=desc&order=price&q=Marvel+Vs+Capcom+Infinite" target="_blank" title="Marvel Vs Capcom Infinite XBOXONE"></a>
+            <a class="PC" href="https://mediagalaxy.ro/catalogsearch/result/index/?brand-3334=capcom&cat=279-pc&dir=desc&order=price&q=Marvel+Vs+Capcom+Infinite" target="_blank" title="Marvel Vs Capcom Infinite PC"></a> 
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/capcom/order/price/dir/desc/?q=Marvel%20Vs%20Capcom%20Infinite" target="_blank" title="Marvel Vs Capcom Infinite">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 22 Septembrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Project_Cars_2_480x300_f9ebf1b3.png">
+            <source media="(max-width:  640px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Project_Cars_2_640x300_b6496915.png">
+            <source media="(max-width:  960px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Project_Cars_2_960x300_fe04a279.png">
+            <source media="(max-width:  1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Project_Cars_2_1280x300_b70466bb.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Project_Cars_2_1280x300_b70466bb.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>219</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/bandai-namco/order/price/dir/desc/?q=Project%20Cars%202" target="_blank" title="Project Cars 2 PS4"></a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/bandai-namco/order/price/dir/desc/?q=Project%20Cars%202" target="_blank" title="Project Cars 2 PC"></a> 
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/bandai-namco/order/price/dir/desc/?q=Project%20Cars%202" target="_blank" title="Project Cars 2">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 29 Septembrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Fifa18_480x300_c6dcce20.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Fifa18_640x300_1640f8d5.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Fifa18_960x300_783651d2.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Fifa18_1280x300_acd77ae4.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/septembrie/Fifa18_1280x300_acd77ae4.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>79</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/electronic-arts/order/price/dir/desc/?q=Fifa%2018" target="_blank" title="Fifa 18 PS4"></a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/catalogsearch/result/index/?brand-3334=electronic-arts&cat=471-xbox-one&dir=desc&order=price&q=Fifa+18" target="_blank" title="Fifa 18 XBOXONE"></a>
+            <a class="PC" href="https://mediagalaxy.ro/catalogsearch/result/index/?brand-3334=electronic-arts&cat=279-pc&dir=desc&order=price&q=Fifa+18" target="_blank" title="Fifa 18 PC"></a> 
+            <a class="NINTENDOSWITCH" href="https://mediagalaxy.ro/catalogsearch/result/index/?brand-3334=electronic-arts&cat=741-nintendo-switch&dir=desc&order=price&q=Fifa+18" target="_blank" title="Fifa 18 NINTENDOSWITCH"></a> 
+            <a class="PS3" href="https://mediagalaxy.ro/catalogsearch/result/index/?brand-3334=electronic-arts&cat=255-playstation-3&dir=desc&order=price&q=Fifa+18" target="_blank" title="Fifa 18 PS3"></a> 
+            <a class="XBOX360" href="https://mediagalaxy.ro/catalogsearch/result/index/?brand-3334=electronic-arts&cat=251-xbox-360&dir=desc&order=price&q=Fifa+18" target="_blank" title="Fifa 18 XBOX360"></a> 
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/electronic-arts/order/price/dir/desc/?q=Fifa%2018" target="_blank" title="Fifa 18">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>
+</div>
+
+<button id="Octombrie2017" class="Accordion">Octombrie 2017</button>
+
+<div class="Panel">
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 03 Octombrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Forza_Motorsport_7_480x300_5f41db6f.png">
+            <source media="(max-width:  640px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Forza_Motorsport_7_640x300_5da105d6.png">
+            <source media="(max-width:  960px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Forza_Motorsport_7_960x300_585f8f47.png">
+            <source media="(max-width:  1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Forza_Motorsport_7_1280x300_8cb0fc0c.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Forza_Motorsport_7_1280x300_8cb0fc0c.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>249</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/microsoft/order/price/dir/desc/?q=Forza%20Motorsport%207" target="_blank" title="Forza Motorsport 7 XBOXONE"></a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/microsoft/order/price/dir/desc/?q=Forza%20Motorsport%207" target="_blank" title="Forza Motorsport 7">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 10 Octombrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Middle_Earth-Shadow_Of_War_480x300_6a2e667e.png">
+            <source media="(max-width:  640px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Middle_Earth-Shadow_Of_War_640x300_d9c55277.png">
+            <source media="(max-width:  960px)"  srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Middle_Earth-Shadow_Of_War_960x300_272d557b.png">
+            <source media="(max-width:  1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Middle_Earth-Shadow_Of_War_1280x300_1b7a909d.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Middle_Earth-Shadow_Of_War_1280x300_1b7a909d.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>199</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/warner/order/price/dir/desc/?q=Middle%20Earth%20Shadow%20Of%20War" target="_blank" title="Middle Earth Shadow Of War PS4"></a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/warner/order/price/dir/desc/?q=Middle%20Earth%20Shadow%20Of%20War" target="_blank" title="Middle Earth Shadow Of War XBOXONE"></a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/warner/order/price/dir/desc/?q=Middle%20Earth%20Shadow%20Of%20War" target="_blank" title="Middle Earth Shadow Of War PC"></a>
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/warner/order/price/dir/desc/?q=Middle%20Earth%20Shadow%20Of%20War" target="_blank" title="Middle Earth Shadow Of War">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 13 Octombrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/The_Evil_Within_2_480x300_ef4d4f5f.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/The_Evil_Within_2_640x300_10e0623f.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/The_Evil_Within_2_960x300_0ab635f7.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/The_Evil_Within_2_1280x300_8936c9c4.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/The_Evil_Within_2_1280x300_8936c9c4.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>229</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/bethesda/order/price/dir/desc/?q=The%20Evil%20Within" target="_blank" title="The Evil Within PS4"></a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/bethesda/order/price/dir/desc/?q=The%20Evil%20Within" target="_blank" title="The Evil Within XBOXONE"></a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/bethesda/order/price/dir/desc/?q=The%20Evil%20Within" target="_blank" title="The Evil Within PC"></a> 
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/bethesda/order/price/dir/desc/?q=The%20Evil%20Within" target="_blank" title="The Evil Within">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 27 Octombrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Wolfenstein_II-The_New_Colossus_640x300_c613e95e.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Wolfenstein_II-The_New_Colossus_480x300_21d1a05b.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Wolfenstein_II-The_New_Colossus_960x300_444ec760.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Wolfenstein_II-The_New_Colossus_1280x300_f094db11.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Wolfenstein_II-The_New_Colossus_1280x300_f094db11.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>229</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/bethesda/order/price/dir/desc/?q=Wolfenstein%20II%20The%20New%20Colossus" target="_blank" title="Wolfenstein II The New Colossus PS4"></a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/bethesda/order/price/dir/desc/?q=Wolfenstein%20II%20The%20New%20Colossus" target="_blank" title="Wolfenstein II The New Colossus XBOXONE"></a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/bethesda/order/price/dir/desc/?q=Wolfenstein%20II%20The%20New%20Colossus" target="_blank" title="Wolfenstein II The New Colossus PC"></a> 
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/bethesda/order/price/dir/desc/?q=Wolfenstein%20II%20The%20New%20Colossus" target="_blank" title="Wolfenstein II The New Colossus">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>  
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 27 Octombrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Assassins_Creed-Origins_480x300_d6e88857.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Assassins_Creed-Origins_640x300_9b149d16.png">
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Assassins_Creed-Origins_960x300_22d6cf91.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Assassins_Creed_Origins_1280x300_c83927ae.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/octombrie/Assassins_Creed_Origins_1280x300_c83927ae.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>269</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/ubisoft/order/price/dir/desc/?q=Assassins%20Creed%20Origins" target="_blank" title="Assassins Creed Origins PS4"></a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/ubisoft/order/price/dir/desc/?q=Assassins%20Creed%20Origins" target="_blank" title="Assassins Creed Origins XBOXONE"></a>             
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/ubisoft/order/price/dir/desc/?q=Assassins%20Creed%20Origins" target="_blank" title="Assassins Creed Origins">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>
+</div>
+
+<button id="Noiembrie2017" class="Accordion">Noiembrie 2017</button>
+
+<div class="Panel">
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 03 Noiembrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Call_Of_Duty-WWII_480x300_17b24bc1.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Call_Of_Duty-WWII_640x300_3e5814c1.png">    
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Call_Of_Duty-WWII_960x300_14a4495c.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Call_Of_Duty-WWII_1280x300_87cba515.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Call_Of_Duty-WWII_1280x300_87cba515.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>229</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/activision/order/price/dir/desc/?q=Call%20Of%20Duty%20WWII" target="_blank" title="Call Of Duty WWII PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/activision/order/price/dir/desc/?q=Call%20Of%20Duty%20WWII" target="_blank" title="Call Of Duty WWII XBOXONE">
+            </a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/activision/order/price/dir/desc/?q=Call%20Of%20Duty%20WWII" target="_blank" title="Call Of Duty WWII PC">
+            </a>  
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/activision/order/price/dir/desc/?q=Call%20Of%20Duty%20WWII" target="_blank" title="Call Of Duty WWII">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 17 Noiembrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Lego_Marvel_Super_Heroes_2_480x300_7cb6246b.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Lego_Marvel_Super_Heroes_2_640x300_197764c4.png">    
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/LegoMarvel_Super_Heroes_2_960x300_8630eb60.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Lego_Marvel_Super_Heroes_2_1280x300_db18a1bf.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Lego_Marvel_Super_Heroes_2_1280x300_db18a1bf.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -DeLa">
+            <span>279</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="PS4" href="https://mediagalaxy.ro/search/filtru/cat/438-playstation-4/brand-3334/warner/order/price/dir/desc/?q=Lego%20Marvel%20Super%20Heroes%202" target="_blank" title="Lego Marvel Super Heroes 2 PS4">
+            </a>
+            <a class="XBOXONE" href="https://mediagalaxy.ro/search/filtru/cat/471-xbox-one/brand-3334/warner/order/price/dir/desc/?q=Lego%20Marvel%20Super%20Heroes%202" target="_blank" title="Lego Marvel Super Heroes 2 XBOXONE">
+            </a>
+            <a class="PC" href="https://mediagalaxy.ro/search/filtru/cat/279-pc/brand-3334/warner/order/price/dir/desc/?q=Lego%20Marvel%20Super%20Heroes%202" target="_blank" title="Lego Marvel Super Heroes 2 PC">
+            </a>
+            <a class="NINTENDOSWITCH" href="https://mediagalaxy.ro/search/filtru/cat/741-nintendo-switch/brand-3334/warner/order/price/dir/desc/?q=Lego%20Marvel%20Super%20Heroes%202" target="_blank" title="Lego Marvel Super Heroes 2 NINTENDOSWITCH">
+            </a>            
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/warner/order/price/dir/desc/?q=Lego%20Marvel%20Super%20Heroes%202" target="_blank" title="Lego Marvel Super Heroes 2">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 17 Noiembrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Pokemon_Ultra_Moon_480x300_04fa61a6.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Pokemon_Ultra_Moon_640x300_6d43e3eb.png">    
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Pokemon_Ultra_Moon_960x300_c342c836.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Pokemon_Ultra_Moon_1280x300_c355526d.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Pokemon_Ultra_Moon_1280x300_c355526d.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>229</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="NINTENDO3DS" href="https://mediagalaxy.ro/search/filtru/cat/275-nintendo-3ds/brand-3334/nintendo/order/price/dir/desc/?q=Pokemon%20Ultra%20Moon" target="_blank" title="Pokemon Ultra Moon NINTENDO3DS">
+            </a>            
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/nintendo/order/price/dir/desc/?q=Pokemon%20Ultra%20Moon" target="_blank" title="Pokemon Ultra Moon">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>
+    <div class="JocBanner">
+        <div class="JocDisponibilitate">
+            <p>
+                <span>Disponibil din</span>
+                <span> 17 Noiembrie 2017</span>
+            </p>
+        </div>
+        <picture>
+            <source media="(max-width:  480px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Pokemon_Ultra_Sun_480x300_a7b674db.png">
+            <source media="(max-width:  640px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Pokemon_Ultra_Sun_640x300_b3e5bbbc.png">    
+            <source media="(max-width:  960px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Pokemon_Ultra_Sun_960x300_2a943b2b.png">
+            <source media="(max-width: 1280px)" srcset="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Pokemon_Ultra_Sun_1280x300_9ad08476.png">
+            <img src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/noiembrie/Pokemon_Ultra_Sun_1280x300_9ad08476.png" sizes="100vw" alt="">
+        </picture>
+        <div class="JocPret -Pret">
+            <span>199</span>
+            <span>lei</span>
+        </div>        
+        <div class="JocTip">
+            <a class="NINTENDO3DS" href="https://mediagalaxy.ro/search/filtru/cat/275-nintendo-3ds/brand-3334/nintendo/order/price/dir/desc/?q=Pokemon%20Ultra%20Sun" target="_blank" title="Pokemon Ultra Sun NINTENDO3DS">
+            </a>            
+        </div>
+        <a href="https://mediagalaxy.ro/search/filtru/cat/175-gaming-jocuri-jucarii/brand-3334/nintendo/order/price/dir/desc/?q=Pokemon%20Ultra%20Sun" target="_blank" title="Pokemon Ultra Sun">
+            <button type="submit" title="Precomanda" class="ButtonLCI -VeziDetaliiMGX -Small">Vezi jocurile</button>
+        </a>
+    </div>    
+</div>                            
+                            
+<div class="Descriere u-space-mt-15 u-space-mb-15 u-text-align-center u-bgcolor-light-gray u-border-radius u-color-black u-space-p-10">
+    <p class="Descriere -VeziMaiMult">
+        <span class="DescriereTitle u-heading-uppercase u-heading-h5 u-space-mt-10 u-space-mb-0 lg-u-space-m-0 u-space-mr-10 u-text-bold u-color-black">Despre noi:</span>
+        <span>Suntem o echipa de pasionati de gaming si de hardware dedicat pentru gaming.</span>
+        <span>Pasiunea ne uneste,&nbsp;de aceea scopul nostru este sa iti prezentam:</span>
+        <span class="DescriereBullet"> - noutatile in materie de hardware dedicat pentru gaming</span>
+        <span class="DescriereBullet"> - datele de lansare a jocurilor pentru PC sau orice tip de consola</span>         
+        <span>&nbsp;</span>
+        <span>Viziteaza regulat acesta pagina pentru a fi la curent cu noutatile si cu informatiile oferite de noi.</span>
+        <span>Daca ti-a placut te rugam sa o recomanzi si prietenilor pentru a crea o cumunitate cat mai mare.</span>
+        <span>Suntem alaturi de tine - Fii alaturi de noi, de evenimentele organizate de noi atat in magazinele Media Galaxy cat si pe site prin Live Video streaming.</span>
+        <span class="DescriereSemnatura">Iti dorim o experienta placuta alaturi de noi !</span>
+        <span class="DescriereSemnatura">Echipa Gaming Media Galaxy</span>
+        <span class="DescriereTitle u-heading-uppercase u-heading-h5 u-space-mt-10 u-space-mb-0 lg-u-space-m-0 u-space-mr-10 u-text-bold u-color-black">Cum sa:</span>
+        <span>Poti gasi jocul pentru toate platformele selectand butonul 'Vezi jocuri' sau filtra cautarea selectand unul din icon-ul platformelor disponibile pentru jocul respectiv.</span>
+        <span>&nbsp;</span>
+        <img class="DescriereIcon" src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/ps4_9eed964b.png">
+        <img class="DescriereIcon" src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/xbox_one_fd43dac7.png">
+        <img class="DescriereIcon" src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/xbox_360_9f40ba52.png">
+        <img class="DescriereIcon" src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/pc_48120ba4.png">
+        <img class="DescriereIcon" src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/nintendo_switch_0851a66a.png">
+        <img class="DescriereIcon" src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/nintendo_3ds_f2527e3c.png">
+        <img class="DescriereIcon" src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/w_ii_ce056d0c.png">
+        <img class="DescriereIcon" src="https://media.altex.ro/LP/MGX/lansari-jocuri/2017/ps3_2f2a8dc4.png">
+    </p>
+    <p>
+        <a class="DescriereAction -VeziMaiMult">
+            Vezi mai mult
+        </a>
+    </p>
+</div>
+
+<style>	
+#return_to_top {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .5);
+    
+    animation-name: silde_in;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-delay: 0;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+}
+
+@keyframes silde_in {
+    0% {
+        bottom: 20px;
+        right: -40px;
+    }
+
+    100% {
+        bottom: 20px;
+        right: 20px;
+    }
+}   
+
+#return_to_top.style-circle {
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+}
+    
+#return_to_top.style-MGX {
+/* Media Galaxy #244196 36,65,150 */
+    background: rgb(36,65,150);
+    background-color: rgba(36,65,150, .7);
+}
+
+#return_to_top.style-ATX {
+/* Altex #D71440 215,20,64 */
+    background: rgb(215,20,64);
+    background-color: rgba(215,20,64, .7);     
+}
+     
+#return_to_top i {
+    color: #fff;
+    margin: 0;
+    position: relative;
+    left: 10px;
+    top: 20px;
+    font-size: 19px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return_to_top.style-MGX:hover {
+	background: rgba(36,65,150, 1);
+}
+
+#return_to_top.style-ATX:hover {
+	background: rgba(215,20,64, 1);
+}
+    
+#return_to_top:hover i {
+    color: #fff;
+    top: 5px;
+}
+
+.icon-up::before {
+    content: '';
+    display: inline-block;
+    margin-top: 0px; 
+    margin-left: 0px;
+    width: 18px;
+    height: 18px;
+    border-top: 3px solid #fff;
+    border-right: 3px solid #fff;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}		
+</style>
+
+<a href="javascript:" class="style-MGX" id="return_to_top">
+    <i class="icon-up"></i>
+</a>
+
+<script type="text/javascript">
+var ElementReturnToTop = document.getElementById('return_to_top');
+var AllPageHTML = document.documentElement || document.body.parentNode || document.body;
+
+
+window.addEventListener("scroll", function()                
+{
+    ScrollPosition = window.pageYOffset || AllPageHTML.scrollTop;
+    if (ScrollPosition >= 1000)
+    {
+        FadeIn(ElementReturnToTop);
+    }
+    else
+    {
+        FadeOut(ElementReturnToTop);
+    }
+}, false);
+    
+ElementReturnToTop.onclick = function () {
+    WindowScrollTo(0, ScrollPosition * 0.25);
+}
+</script>
+                        
+
+<script type="text/javascript">
+anchors = document.getElementsByClassName('SpecialWindowScrollTo');
+for (var i = 0; i < anchors.length; i++)
+{
+	(function (i)
+     {
+		anchors[i].onclick = function (event)
+        {
+			event.preventDefault();
+            var MaxScroll = AllPageHTML.scrollHeight - window.innerHeight;
+            var GetElementAccordion = document.getElementById(anchors[i].href.split('#')[1]);
+            var OffsetTop = GetElementAccordion.offsetTop;
+			var To = Math.min
+            (
+                OffsetTop,
+                MaxScroll
+            )-10;		
+            
+			WindowScrollTo(To, To * 1,
+                           function()
+                           {
+                                GetElementAccordion.className += " " + "-Active";
+                                GetElementAccordion.nextElementSibling.className += " " + "-Show";
+               
+                                setTimeout
+                                (
+                                    function()
+                                    { 
+                                        var MaxScroll2 = AllPageHTML.scrollHeight - window.innerHeight;
+                                        var To2 = Math.min
+                                        (
+                                            OffsetTop,
+                                            MaxScroll2
+                                        )-10;
+                                        
+                                        WindowScrollTo(To2, (To2-To) * 1);
+                                    }, 600
+                                );
+                           }
+                          );
+		}
+	}
+    )(i);
+}
+</script>
+
+<script type="text/javascript">
+function FadeIn(Element)
+    {
+        opacity = Number(window.getComputedStyle(Element).getPropertyValue("opacity")); /* Important to get the initial, previous value */
+        var Timer = setInterval
+        (
+            function ()
+            {
+                if (opacity >= 1)
+                    {
+                        clearInterval(Timer);
+                    }
+                Element.style.display = 'block';
+                Element.style.opacity = opacity;
+                Element.style.filter = 'alpha(opacity=' + opacity * 100 + ")";
+                opacity += opacity * 0.1;
+            }, 10
+        ); 
+    }
+</script>
+
+<script type="text/javascript">
+function FadeOut(Element)
+    {
+        opacity = Number(window.getComputedStyle(Element).getPropertyValue("opacity"));  /* Important to get the initial, previous value */
+            
+        var Timer = setInterval
+        (
+            function ()
+            {
+                if (opacity <= 0.1)
+                {
+                    clearInterval(Timer);
+                    Element.style.display = 'none';
+                }                
+                Element.style.opacity = opacity;
+                Element.style.filter = 'alpha(opacity=' + opacity * 100 + ")";
+                opacity -= opacity * 0.1;
+            }, 10
+        );
+    }       
+</script>
+
+<script type="text/javascript">
+function WindowScrollTo(YOffset, Duration, CallBack)
+    {           
+        if (Duration <= 0)
+        {
+            if( typeof CallBack === 'function' && CallBack() ) CallBack();
+            return -1;
+        }
+        var Difference = YOffset - window.pageYOffset;
+        var PXPerStep = Difference / Duration * 10;
+                
+        PXPerStep = PXPerStep + window.pageYOffset;
+        
+        if ( ( (Difference > 0) && (PXPerStep >= YOffset) ) || ( (Difference < 0) && (PXPerStep <= YOffset) ) )
+        {               
+            PXPerStep = YOffset;            
+        }
+        
+        window.scrollTo(0, PXPerStep);
+
+        Duration = Duration - 10;
+        
+        setTimeout(function() {
+            
+            WindowScrollTo(YOffset, Duration, CallBack);
+        }, 10);
+    }
+</script>
+
+<script type="text/javascript">
+    var accordion = document.getElementsByClassName("Accordion");
+    var i;
+    for (i = 0; i < accordion.length; i++) {
+        accordion[i].onclick = function() {
+            this.classList.toggle("-Active");
+            this.nextElementSibling.classList.toggle("-Show");
+            }
+    }
+</script>
+
+<script type="text/javascript">
+    var DescriereAction = document.getElementsByClassName("DescriereAction -VeziMaiMult");
+    var j;
+    for (j = 0; j < DescriereAction.length; j++)
+    {
+        DescriereAction[j].onclick = function()
+        {   
+            this.innerText == "Vezi mai mult" ? this.innerText = "Vezi mai putin" : this.innerText = "Vezi mai mult";
+            this.classList.toggle("-VeziMaiMult");
+            this.offsetParent.previousElementSibling.classList.toggle("-VeziMaiMult");
+            
+        }
+    }
+</script>
